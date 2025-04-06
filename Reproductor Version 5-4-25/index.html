@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Música - YouTube</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #player-container {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        #song-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ff4081;
+        }
+
+        #controls {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #progress-bar {
+            width: 70%;
+            margin: 0 10px;
+            height: 8px;
+            background-color: #333;
+            border-radius: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        #progress-bar::-webkit-slider-thumb,
+        #progress-bar::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #ff4081;
+            cursor: pointer;
+        }
+
+        #current-time, #duration {
+            font-size: 14px;
+            margin-left: 10px;
+            color: #bbb;
+        }
+
+        button {
+            background: #ff4081;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+            color: #fff;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #d5006b;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        #youtube-player {
+            display: none; /* Oculta el reproductor de video */
+        }
+
+        #cover {
+            width: 250px;
+            height: 250px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        #cover:hover {
+            transform: scale(1.1);
+        }
+
+        #playlist-container {
+            margin-top: 20px;
+            color: #fff;
+            text-align: left;
+        }
+
+        #playlist {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #playlist li {
+            padding: 8px;
+            cursor: pointer;
+            margin: 5px 0;
+            border-radius: 5px;
+            background-color: #333;
+            transition: background-color 0.3s ease;
+        }
+
+        #playlist li:hover {
+            background-color: #555;
+        }
+    </style>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+    <h1 style="color: #ff4081;">Reproductor de Música</h1>
+    <div id="player-container">
+        <div id="youtube-player"></div>
+        <img id="cover" src="cover1.jpg" alt="Portada">
+        <h2 id="song-title">Título de la canción</h2>
+        <h3 id="artist">Artista</h3>
+        <input type="range" id="progress-bar" value="0" max="100">
+        <span id="current-time">00:00</span> / <span id="duration">00:00</span>
+        <div id="controls">
+            <button id="prev-button">⏮️ Anterior</button>
+            <button id="play-button">▶️ Reproducir</button>
+            <button id="next-button">⏭️ Siguiente</button>
+        </div>
+
+        <div id="playlist-container">
+            <h3>Canciones de la Playlist:</h3>
+            <ul id="playlist"></ul>
+        </div>
+
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
