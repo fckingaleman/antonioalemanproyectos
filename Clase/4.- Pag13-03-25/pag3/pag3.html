@@ -1,0 +1,51 @@
+<hmtl>
+    <head>
+        <title>Pagina 13-03-25</title>
+        <style>
+            body{
+                background-color: #1e1e1e;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            var a1=[], a2=[];
+            function datos () {
+                alert("Ingrese 10 numeros enteros");
+                for (let i=0;i<=9;i++ ){
+                    a1[i]=parseInt(prompt("Ingrese el numero "+(i+1)));
+                }
+                alert("Ingrese 10 numeros reales");
+                for (let i=0;i<=9;i++ ){
+                    a2[i]=parseInt(prompt("Ingrese el numero "+(i+1)));
+                }
+            }
+            function f1 () {
+                alert("funcion que determina que numero es mayor de los enteros");
+                let mayor = a1[0];
+                for (let i = 0; i<=9;i++){
+                    if (a1[i]>mayor){
+                        mayor = a1[i];
+                    }
+                }
+                alert("El numero mayor es: "+mayor);
+            }
+            function f2 () {
+                alert("Funcion que determina que numero es menor de los reales");
+                let menor = a2[0];  
+                for (let i=0; i<=9;i++) { 
+                if (a2[i] < menor) {
+                menor = a2[i];
+                    }
+                }
+                alert("El número menor es: " + menor);
+            }
+            function f3 () {
+                
+            }
+            datos();
+            f1();
+            f2();
+        </script>
+    </body>
+</hmtl>

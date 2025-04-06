@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <title>Pagina 31-03-25</title>
+        <style>
+            body{
+                background-color: #1e1e1e;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            var cuentabanco = new Object ();
+            cuentabanco.titular=" ";
+            cuentabanco.saldo=0.0;
+            cuentabanco.retiro=0.0;
+            cuentabanco.depo=0.0;
+            cuentabanco.tipo=" ";
+            cuentabanco.tarjeta=0.0;
+            cuentabanco.nip=0.0;
+
+            function f1 (){
+                cuentabanco.titular=prompt("Ingrese el Nombre del Titular");
+            }
+            function f2 () {
+                cuentabanco.tipo=parseInt(prompt("Ingrese el tipo de cuenta que es:  \n1.-Ahorro \n2.-Cheques \n3.-Empresarial"));
+                switch (cuentabanco.tipo) {
+                    case 1: {
+                        cuentabanco.tarjeta=parseInt(prompt("Ingrese los digitos de su tarjeta fisica"));
+                        while (cuentabanco.tarjeta.toString().length !== 16) {
+                            cuentabanco.tarjeta = parseInt(prompt("El número ingresado no tiene 16 dígitos. Ingrese nuevamente los dígitos de su tarjeta física"));
+                        }
+                        cuentabanco.nip=parseInt(prompt("Ingrese su NIP"));
+                        while (cuentabanco.nip.toString().length !== 4) {
+                            cuentabanco.nip = parseInt(prompt("El número ingresado no tiene 4 dígitos. Ingrese nuevamente los dígitos de su NIP"));
+                        } 
+                    }
+                    break;
+                    case 2: {
+                        cuentabanco.tarjeta=parseInt(prompt("Ingrese los digitos de su tarjeta fisica"));
+                        while (cuentabanco.tarjeta.toString().length !== 16) {
+                            cuentabanco.tarjeta = parseInt(prompt("El número ingresado no tiene 16 dígitos. Ingrese nuevamente los dígitos de su tarjeta física"));
+                        }
+                        cuentabanco.nip=parseInt(prompt("Ingrese su NIP"));
+                        while (cuentabanco.nip.toString().length !== 4) {
+                            cuentabanco.nip = parseInt(prompt("El número ingresado no tiene 4 dígitos. Ingrese nuevamente los dígitos de su NIP"));
+                        } 
+                    }
+                    break;
+                    case 3: {
+                        cuentabanco.tarjeta=parseInt(prompt("Ingrese los digitos de su cuenta"));
+                        while (cuentabanco.tarjeta.toString().length !== 10) {
+                            cuentabanco.tarjeta = parseInt(prompt("El número ingresado no tiene 10 dígitos. Ingrese nuevamente los dígitos de su cuenta"));
+                        }
+                    }
+                    break;
+                    default : alert("Opcion no valida");
+                    break;
+                }
+            }
+            
+            function f3 () {
+                if (cuentabanco.tipo==3) {
+                    cuentabanco.saldo=Math.floor(Math.random() * (10000000 - 500 + 1)) + 500;
+                }
+                else {
+                    cuentabanco.saldo=Math.floor(Math.random() * (100000 - 500 + 1)) + 500;
+                }
+            }
+
+            function f4 () {
+                var deposito = parseFloat(prompt("Ingrese la cantidad a depositar"));
+                cuentabanco.depo=deposito+cuentabanco.saldo;
+                alert("Su saldo anterior era de: "+cuentabanco.saldo+"\nSu saldo actual es de: "+cuentabanco.depo);
+            }
+            
+            function f5 () {
+                alert("Su sueldo actual es de: "+cuentabanco.saldo);
+                var reti = parseFloat(prompt("Ingrese la cantidad que desee retirar"));
+                if (reti<cuentabanco.saldo) {
+                    cuentabanco.retiro=cuentabanco.saldo-reti;
+                    alert("Usted a retirado: "+reti+"\nSu Saldo Anterior era de: "+cuentabanco.saldo+"\nSu saldo Actual es de: "+cuentabanco.retiro);
+                }
+                else {
+                    alert("Saldo Insuficiente");
+                }
+            }
+
+            function f6 () {
+
+            }
+
+            alert("Pagina de un Banco");
+            f1();
+            f2();
+            var op = parseInt(prompt("Que desea hacer  \n1.-Deposito \n2.-Retiro \n3.-Transferecia y/o Cheque \n4.-Consulta de Saldo \n5.-Salir"));
+            switch (op) {
+                case 1: {
+                    f3();
+                    f4();
+                }
+                break;
+                case 2: {
+                    f3();
+                    f5();
+                }
+                break;
+                case 3: {
+                    f3();
+                    f6();
+                }
+                break;
+                case 4: {
+                    f3();
+                    alert("Su saldo es de "+cuentabanco.saldo);
+                }
+                break;
+                case 5: {
+                    alert("Gracias por usar este banco");
+                }
+                break;
+                default : alert("Opcion no valida");
+                break;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<html>
+    <title>Pagina 25-03-25</title>
+        <style>
+            body{
+                background-color: #1e1e1e;
+            }
+        </style>
+    <body>
+        <script>
+            var i2=0;
+            var a = [];
+
+            function num () {
+                a[i] = a[i] || [];
+                a[i][0]=prompt("Ingrese el numero del "+(i+1)+" empleado");
+            }
+
+            function nom () {
+                a[i][1]=prompt("Ingrese el nombre del "+(i+1)+" empleado");
+            }
+            function dep () {
+                a[i][2]=prompt("Ingrese en el departamento que en el que trabaja el "+(i+1)+"  empleado");
+                if (a[i][2]<1 || a[i][2]>5){
+                    alert("Opcion no Valida");
+                }
+                else{
+                    alert("Departamento Correcto");
+                }
+            }
+
+            function sueldo () {
+                a[i][3]=parseFloat(prompt("Ingrese el sueldo base del  "+(i+1)+" empleado"));
+                a[i][4]=a[i][3]*0.05;
+                a[i][5]=a[i][4]+a[i][3]; 
+            }
+
+
+            alert("Pagina que registra empleados a una empresa");
+            i2 = parseInt(prompt("Ingrese la cantidad de empleados"));
+            for (var i =0; i<i2; i++){
+            num();
+            nom();
+            dep();
+            sueldo();
+            }
+            for (var i =0; i<i2; i++){
+            alert("Empleado: \nNumero: "+a[i][0]+" \nNombre: "+a[i][1]+"\nDepartamento: "+a[i][2]+"\nSueldo "+a[i][3]+"\nAumento: "+a[i][4]+"\nSueldo Nuevo: "+a[i][5]);
+            }
+            
+        </script>
+    </body>
+</html>

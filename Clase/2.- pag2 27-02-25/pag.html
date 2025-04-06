@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>Pagina 27-02-25</title>
+        <style>
+            body{
+                background-color: #1e1e1e;
+            }
+        </style>
+    </head>
+    <style>
+        body {
+            background-color: lightblue;
+        }
+    </style>
+    <body>
+        <script>
+            var op = " ", n1=0.0, n2=0.0,r=0.0,r1=0.0;
+            alert("Página que solicita dos números enteros");
+            n1=parseFloat(prompt("Ingrese en primer numero"));
+            n2=parseFloat(prompt("Ingrese en segundo numero"));
+            op = prompt("Seleccione una opcion\nSuma\nResta\nMultiplicacion\nDivicion\nPotencia\nRaiz").toLowerCase(); 
+            switch (op) {
+                case ("suma") : {
+                    r=n1+n2;
+                    alert("El resultado de la suma es: "+r);
+                    break;
+                }
+                case ("resta") : {
+                    r=n1-n2;
+                    alert("El resultado de la resta es: "+r);
+                    break;
+                }
+                case ("multiplicacion") : {
+                    r=n1*n2;
+                    alert("El resultado de la multiplicacion es: "+r);
+                    break;
+                }
+                case ("divicion") : {
+                    r=n1/n2;
+                    alert("El resultado de la divicion es: "+r);
+                    break;
+                }
+                case ("potencia") : {
+                    r=n1**n2;
+                    alert("El resultado de la potencia es: "+r);
+                    break;
+                }
+                case ("raiz") : {
+                    r=Math.sqrt(n1);
+                    r1=Math.sqrt(n2);
+                    alert("El resultado de la primera raiz es: "+r);
+                    alert("El resultado de la segunda raiz es: "+r1);
+                    break;
+                }
+                default : {
+                    alert("Opcion No Valida");
+                    break;
+                }           
+            }
+
+        </script>
+    </body>
+</html>
