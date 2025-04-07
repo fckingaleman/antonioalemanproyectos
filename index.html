@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repositorio de Antonio Aleman</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --background: #000000;
+            --surface: rgba(255, 255, 255, 0.08);
+            --primary: rgba(255, 255, 255, 0.9);
+            --secondary: rgba(255, 255, 255, 0.6);
+            --accent: #0A84FF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation Bar */
+        .nav-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 0;
+            z-index: 1000;
+        }
+
+        .nav-grid {
+            display: flex;
+            justify-content: space-around;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            text-align: center;
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            padding: 8px 12px;
+            border-radius: 24px;
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+            background: rgba(10, 132, 255, 0.12);
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        /* Content Container */
+        .content {
+            padding: 2rem 1rem 6rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Section Header */
+        .section-header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--surface);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        /* Skill Cards */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 14px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .skill-card:hover {
+            transform: scale(1.02);
+        }
+
+        .skill-icon {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Project Cards */
+        .project-card {
+            background: var(--surface);
+            border-radius: 14px;
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .project-card::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .project-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        /* New Styles */
+        .skills-grid a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--surface);
+            border-radius: 10px;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: var(--primary);
+        }
+
+        .project-link:hover {
+            background: rgba(10, 132, 255, 0.1);
+        }
+
+        .project-link i {
+            font-size: 1.2rem;
+        }
+
+        /* Typography */
+        .text-secondary {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content {
+                padding: 1rem 1rem 6rem;
+            }
+        }
+            .skill-icon img {
+            width: 2.5rem !important;
+            height: 2.5rem;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="content" align="center">
+        <header class="section-header">
+            <h1 class="section-title">Desarrollador Principiante</h1>
+            <p class="text-secondary">Manejo de varios lenguajes</p>
+        </header>
+
+        <section>
+            <h2 class="section-title">Proyectos de diferentes lenguajes</h2>
+            
+            <div class="skills-grid" style="margin-bottom: 2rem;">
+                <a href="/Proyectos C/indexC.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos C/icon.png" alt="C">
+                    </div>
+                    <h3>C</h3>
+                </a>
+                <a href="/Proyectos C ++/indexCplusplus.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos C ++/icon.png" alt="C++">
+                    </div>
+                    <h3>C++</h3>
+                </a>
+                <a href="/Proyectos C Shrap/indexCShrap.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos C Shrap/icon.png" alt="C#">
+                    </div>
+                    <h3>C#</h3>
+                </a>
+                <a href="/Proyectos HTML, CSS, JS/indexJavaScript.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos HTML, CSS, JS/iconjs.png" alt="JavaScript">
+                    </div>
+                    <h3>JavaScript</h3>
+                </a>
+                <a href="/Proyectos HTML, CSS, JS/indexHTML.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos HTML, CSS, JS/iconhtml.png" alt="HTML5">
+                    </div>
+                    <h3>HTML5</h3>
+                </a>
+                <a href="/Proyectos HTML, CSS, JS/indexCSS.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos HTML, CSS, JS/iconcss.png" alt="CSS3">
+                    </div>
+                    <h3>CSS3</h3>
+                </a>
+                <a href="/Proyectos Python/indexPython.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos Python/icon.png" alt="Python">
+                    </div>
+                    <h3>Python</h3>
+                </a>
+                <a href="/Proyectos Java/indexJava.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos Java/icon.png" alt="Java">
+                    </div>
+                    <h3>Java</h3>
+                </a>
+                <a href="/Proyectos Php/indexPhp.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos Php/icon.png" alt="Php">
+                    </div>
+                    <h3>Php</h3>
+                </a>
+                <a href="/Proyectos TypeScript/indexTS.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos TypeScript/icon.png" alt="TypeScript">
+                    </div>
+                    <h3>TypeScript</h3>
+                </a>
+                <a href="/Proyectos SQL/indexSQL.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos SQL/icon.png" alt="SQL">
+                    </div>
+                    <h3>SQL</h3>
+                </a>
+                <a href="/Proyectos Ruby/indexRuby.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos Ruby/icon.png" alt="Ruby">
+                    </div>
+                    <h3>Ruby</h3>
+                </a>
+                <a href="/Proyectos Solidity/indexSolidity.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos Solidity/icon.png" alt="Solidity">
+                    </div>
+                    <h3>Solidity</h3>
+                </a>
+                <a href="/Proyectos Android/indexAndroid.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos Android/icon.png" alt="Android">
+                    </div>
+                    <h3>Android</h3>
+                </a>
+                <a href="/Proyectos Unity/indexUnity.html" class="skill-card">
+                    <div class="skill-icon">
+                        <img src="/Proyectos Unity/icon.png" alt="Unity">
+                    </div>
+                    <h3>Unity</h3>
+                </a>
+            </div>
+        </section>
+        
+    </div>
+
+    <div class="nav-container">
+        <nav class="nav-grid">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-house"></i>
+            </a>
+            <a href="https://open.spotify.com/user/31amzqxc4lo35m5kz5fbtqpdqlsy?si=8eaf5b5d970d4fe7" class="nav-item">
+                <i class="fa-brands fa-spotify"></i>
+            </a>
+            <a href="https://github.com/fckingaleman" class="nav-item">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://instagram.com/_antonioaleman" class="nav-item">
+                <i class="fab fa-instagram"></i> 
+            </a> 
+        </nav>
+    </div>
+
+    
+</body>
+</html>

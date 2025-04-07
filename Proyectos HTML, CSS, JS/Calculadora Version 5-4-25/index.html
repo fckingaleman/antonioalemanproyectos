@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Avanzada</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: #fff;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #ff4081;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .calculator {
+            background: #2a2a2a;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            padding: 25px;
+            width: 420px;
+            max-width: 90%;
+        }
+
+        #display {
+            width: calc(100% - 20px);
+            padding: 25px 15px;
+            font-size: 2.2rem;
+            text-align: right;
+            border: none;
+            background: #373737;
+            color: #fff;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.2);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            width: 100%;
+        }
+
+        .button {
+            padding: 18px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: white;
+            background: #4a4a4a;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .number {
+            background: #616161;
+        }
+
+        .number:hover {
+            background: #757575;
+        }
+
+        .operation {
+            background: #ff4081;
+        }
+
+        .operation:hover {
+            background: #f50057;
+        }
+
+        .advanced {
+            background: #6200ea;
+        }
+
+        .advanced:hover {
+            background: #3700b3;
+        }
+
+        .clear {
+            background: #ff7043;
+        }
+
+        .clear:hover {
+            background: #f4511e;
+        }
+
+        .equals {
+            background: #00c853;
+        }
+
+        .equals:hover {
+            background: #009624;
+        }
+
+        .double {
+            grid-column: span 2;
+        }
+
+        .text-sm {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Calculadora</h1>
+        <div class="calculator">
+            <input type="text" id="display" value="0" disabled>
+            <div class="buttons">
+                
+                <button class="button advanced" onclick="sqrt()">√</button>
+                <button class="button advanced" onclick="sin()">sin</button>
+                <button class="button advanced" onclick="cos()">cos</button>
+                <button class="button advanced" onclick="tan()">tan</button>
+                <button class="button advanced text-sm" onclick="factorial()">x!</button>
+
+                
+                <button class="button number" onclick="appendNumber(7)">7</button>
+                <button class="button number" onclick="appendNumber(8)">8</button>
+                <button class="button number" onclick="appendNumber(9)">9</button>
+                <button class="button operation" onclick="chooseOperation('+')">+</button>
+                <button class="button clear" onclick="clearDisplay()">C</button>
+
+                <button class="button number" onclick="appendNumber(4)">4</button>
+                <button class="button number" onclick="appendNumber(5)">5</button>
+                <button class="button number" onclick="appendNumber(6)">6</button>
+                <button class="button operation" onclick="chooseOperation('-')">-</button>
+                <button class="button operation" onclick="chooseOperation('^')">x^y</button>
+
+                <button class="button number" onclick="appendNumber(1)">1</button>
+                <button class="button number" onclick="appendNumber(2)">2</button>
+                <button class="button number" onclick="appendNumber(3)">3</button>
+                <button class="button operation" onclick="chooseOperation('*')">×</button>
+                <button class="button operation" onclick="chooseOperation('/')">÷</button>
+
+                <button class="button number double" onclick="appendNumber(0)">0</button>
+                <button class="button number" onclick="appendNumber('.')">.</button>
+                <button class="button equals" onclick="calculateResult()">=</button>
+            </div>
+        </div>
+    </div>
+        
+        <script>
+            let currentInput = '';
+            let operation = null;
+            let firstInput = '';
+
+            function appendNumber(number) {
+                currentInput += number;
+                updateDisplay(currentInput);
+            }
+
+            function chooseOperation(op) {
+                if (currentInput === '') return;
+                if (firstInput !== '') {
+                    calculateResult();
+                }
+                operation = op;
+                firstInput = currentInput;
+                currentInput = '';
+            }
+
+            function clearDisplay() {
+                currentInput = '';
+                firstInput = '';
+                operation = null;
+                updateDisplay('0');
+            }
+
+            function calculateResult() {
+                let result;
+                const firstNum = parseFloat(firstInput);
+                const secondNum = parseFloat(currentInput);
+
+                switch (operation) {
+                    case '+':
+                        result = firstNum + secondNum;
+                        break;
+                    case '-':
+                        result = firstNum - secondNum;
+                        break;
+                    case '*':
+                        result = firstNum * secondNum;
+                        break;
+                    case '/':
+                        if (secondNum === 0) {
+                            result = 'Error';
+                        } else {
+                            result = firstNum / secondNum;
+                        }
+                        break;
+                    case '^': 
+                        result = Math.pow(firstNum, secondNum);
+                        break;
+                    default:
+                        return;
+                }
+
+                currentInput = result.toString();
+                operation = null;
+                firstInput = '';
+                updateDisplay(currentInput);
+            }
+
+            function sqrt() {
+                if (currentInput === '') return;
+                currentInput = Math.sqrt(parseFloat(currentInput)).toString();
+                updateDisplay(currentInput);
+            }
+
+            function sin() {
+                if (currentInput === '') return;
+                currentInput = Math.sin(parseFloat(currentInput) * Math.PI / 180).toString();
+                updateDisplay(currentInput);
+            }
+
+            function cos() {
+                if (currentInput === '') return;
+                currentInput = Math.cos(parseFloat(currentInput) * Math.PI / 180).toString();
+                updateDisplay(currentInput);
+            }
+
+            function tan() {
+                if (currentInput === '') return;
+                currentInput = Math.tan(parseFloat(currentInput) * Math.PI / 180).toString();
+                updateDisplay(currentInput);
+            }
+
+            function factorial() {
+                if (currentInput === '') return;
+                let num = parseInt(currentInput);
+                if (num < 0) {
+                    currentInput = 'Error';
+                } else {
+                    currentInput = (num === 0) ? '1' : Array.from({length: num}, (_, i) => i + 1).reduce((a, b) => a * b).toString();
+                }
+                updateDisplay(currentInput);
+            }
+
+            function updateDisplay(value) {
+                const display = document.getElementById('display');
+                display.value = value;
+            }
+        </script>
+
+    </body>
+    </html>
+
