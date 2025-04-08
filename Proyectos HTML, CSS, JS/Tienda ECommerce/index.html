@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --primary-hover: #333333;
+            --secondary: #555555;
+            --text: #000000;
+            --text-light: #666666;
+            --border: #e0e0e0;
+            --border-dark: #cccccc;
+            --background: #ffffff;
+            --input-bg: #f9f9f9;
+            --error: #cc0000;
+            --success: #00aa55;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --elevation: 0 1px 3px rgba(0,0,0,0.12);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            transition: var(--transition);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.02) 90%),
+                radial-gradient(circle at 90% 80%, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.02) 90%);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 440px;
+            padding: 2rem;
+            box-sizing: border-box;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-container {
+            background-color: var(--background);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            background-color: var(--input-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--elevation);
+            padding: 0;
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-placeholder:hover img {
+            transform: scale(1.05);
+        }
+
+        .login-container h2 {
+            margin: 0 0 1.75rem 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
+            letter-spacing: -0.025em;
+            transition: var(--transition);
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-group {
+            margin-bottom: 1.75rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .login-container input {
+            padding: 1rem;
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--input-bg);
+            color: var(--text);
+            box-shadow: var(--elevation);
+        }
+
+        .login-container input::placeholder {
+            color: var(--text-light);
+            opacity: 0.6;
+        }
+
+        .login-container input:hover {
+            border-color: var(--border-dark);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+            background-color: var(--background);
+        }
+
+        .login-container button {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-bottom: 1rem;
+            letter-spacing: 0.025em;
+            box-shadow: var(--elevation);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .login-container button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .login-container button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-container button:hover::after {
+            opacity: 1;
+        }
+
+        .login-container button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container button.secondary {
+            background-color: var(--background);
+            color: var(--text);
+            border: 1px solid var(--border-dark);
+            margin-top: 0.75rem;
+        }
+
+        .login-container button.secondary:hover {
+            background-color: var(--input-bg);
+            border-color: var(--border-dark);
+        }
+
+        .error-message {
+            color: var(--error);
+            margin: 1.25rem 0;
+            font-size: 0.9375rem;
+            text-align: center;
+            display: none;
+            padding: 0.875rem;
+            background-color: rgba(204, 0, 0, 0.05);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--error);
+            transition: var(--transition);
+            box-shadow: var(--elevation);
+            position: relative;
+            z-index: 2;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            z-index: 2;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.9375rem;
+            color: var(--text-light);
+            transition: var(--transition);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: none;
+            color: var(--primary-hover);
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-links span {
+            margin: 0 0.5rem;
+            color: var(--border-dark);
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .login-wrapper {
+                padding: 1.25rem;
+            }
+            
+            .login-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .logo-placeholder {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .login-container h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Micro-interactions */
+        .login-container input:valid {
+            border-color: var(--success);
+        }
+        
+        .login-container input:invalid:not(:placeholder-shown) {
+            border-color: var(--error);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .remember-me input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <div class="login-container">
+            <!-- Logo space -->
+            <div class="logo-container">
+                <div class="logo-placeholder">
+                    <img src="icon.png" alt="Logo de la empresa">
+                </div>
+            </div>
+
+            <h2>Iniciar Sesión</h2>
+
+            <!-- Customer login -->
+            <div class="input-group">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" id="username" placeholder="Ingresa tu nombre de usuario">
+            </div>
+            
+            <div class="remember-me">
+                <input type="checkbox" id="remember">
+                <label for="remember">Recordar mi usuario</label>
+            </div>
+
+            <button onclick="loginAsUser()">Ingresar como cliente</button>
+
+            <div class="divider">o</div>
+
+            <!-- Admin login -->
+            <div class="input-group">
+                <label for="admin-password">Contraseña de administrador</label>
+                <input type="password" id="admin-password" placeholder="Ingresa tu contraseña" required />
+            </div>
+            <button onclick="loginAsAdmin()">Acceder como administrador</button>
+
+            <!-- Error message -->
+            <p class="error-message">Credenciales incorrectas. Por favor, intenta nuevamente.</p>
+
+
+            <div class="footer-links">
+                <a href="help.html">¿Necesitas ayuda?</a>
+                <span>•</span>
+                <a href="privacity.html">Política de privacidad</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+         // Cargar usuario guardado al iniciar
+         document.addEventListener('DOMContentLoaded', function() {
+            const rememberedUser = localStorage.getItem('rememberedUser');
+            if (rememberedUser) {
+                document.getElementById('username').value = rememberedUser;
+                document.getElementById('remember').checked = true;
+            }
+            
+            // Verificar si hay preferencia de tema oscuro
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                updateToggleIcon();
+            }
+        });
+
+        function loginAsUser() {
+            const username = document.getElementById('username').value.trim();
+            const remember = document.getElementById('remember').checked;
+            
+            if (username === '') {
+                alert('Por favor ingresa un nombre de usuario');
+                return;
+            }
+
+            // Guardar usuario si el checkbox está marcado
+            if (remember) {
+                localStorage.setItem('rememberedUser', username);
+            } else {
+                localStorage.removeItem('rememberedUser');
+            }
+
+            // Guardar usuario para la sesión actual
+            sessionStorage.setItem('currentUser', username);
+            
+            window.location.href = 'store.html';
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('admin-password');
+            const toggleBtn = passwordInput.nextElementSibling;
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.textContent = '👁️‍🗨️';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.textContent = '👁️';
+            }
+        }
+
+        const adminPassword = '1234';
+
+        function loginAsAdmin() {
+            const password = document.getElementById('admin-password').value;
+            const errorMessage = document.querySelector('.error-message');
+            
+            if (password === adminPassword) {
+                document.querySelector('.login-container').style.transform = 'translateY(-5px)';
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 200);
+            } else {
+                errorMessage.style.display = 'block';
+                document.querySelector('.login-container').animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-10px)' },
+                    { transform: 'translateX(10px)' },
+                    { transform: 'translateX(0)' }
+                ], {
+                    duration: 300,
+                    iterations: 1
+                });
+            }
+        }
+        
+        document.getElementById('admin-password').addEventListener('input', function() {
+            document.querySelector('.error-message').style.display = 'none';
+        });
+
+    </script>
+</body>
+</html>

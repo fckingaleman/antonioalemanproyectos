@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Tienda Online</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --primary-hover: #333333;
+            --secondary: #555555;
+            --text: #000000;
+            --text-light: #666666;
+            --border: #e0e0e0;
+            --border-dark: #cccccc;
+            --background: #ffffff;
+            --input-bg: #f9f9f9;
+            --error: #cc0000;
+            --success: #00aa55;
+            --warning: #f39c12;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-header img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .store-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Product Card Styles */
+        .product {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .quick-view {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            opacity: 0;
+            transition: var(--transition);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .product:hover .quick-view {
+            opacity: 1;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .product-description {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: var(--warning);
+            font-size: 0.875rem;
+        }
+
+        .rating-count {
+            color: var(--text-light);
+            margin-left: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+
+        .current-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .original-price {
+            font-size: 0.875rem;
+            text-decoration: line-through;
+            color: var(--text-light);
+            margin-left: 0.5rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            flex-grow: 1;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .wishlist-btn {
+            background-color: var(--background);
+            border: 1px solid var(--border-dark);
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .wishlist-btn:hover {
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        /* Shopping Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background-color: var(--background);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            z-index: 1000;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-right: 1rem;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+        }
+
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid var(--border);
+            height: 25px;
+            margin: 0 0.25rem;
+        }
+
+        .remove-item {
+            color: var(--error);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .cart-summary {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .total {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkout-btn:hover {
+            background-color: #27ae60;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+        }
+
+        .newsletter-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 1rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            .cart-sidebar {
+                width: 90%;
+                right: -90%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .logo-header {
+                margin-bottom: 1rem;
+            }
+
+            .nav-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .wishlist-btn {
+                width: 100%;
+                border-radius: var(--border-radius);
+                height: auto;
+                padding: 0.5rem;
+            }
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        .social-icon i {
+            color: #fff;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.1);
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-header">
+            <img src="icon.png" alt="Logo Tienda">
+            <div class="header-title">All My Life Shop</div>
+        </div>
+        
+        <div class="nav-container">
+            <div class="user-welcome" id="userWelcome"></div>
+            <div class="cart-icon" id="cartIcon">
+                🛒 <span class="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="store-container">
+        <div class="main-content">
+            <!-- Producto 1 -->
+            <div class="product" id="product-1">
+                <div class="product-badge">Nuevo</div>
+                <div class="product-image-container">
+                    <img src="Img/YeezyBoost700V3Azael.png" alt="Producto 1" class="product-image">
+                    <button class="quick-view">Vista Rápida</button>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Yeezy Boost 700 Azael</h3>
+                    <p class="product-description">El Yeezy Boost 700 Azael combina un diseño futurista con tonos grises y plateados, ofreciendo confort superior gracias a su tecnología Boost. Ideal para un estilo urbano y exclusivo.</p>
+                    <div class="product-rating">★★★★☆ <span class="rating-count">(24)</span></div>
+                    <div class="product-price">
+                        <span class="current-price">$27.99</span>
+                        <span class="original-price">$39.99</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="addToCart(1)">Añadir al Carrito</button>
+                        <button class="wishlist-btn">❤</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="product" id="product-2">
+                <div class="product-badge">Oferta</div>
+                <div class="product-image-container">
+                    <img src="Img/LookMeISeeGhost.jpg" alt="Producto 2" class="product-image">
+                    <button class="quick-view">Vista Rápida</button>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Hoodie Look Me I See Ghost</h3>
+                    <p class="product-description">La Hoodie Look Me I See Ghost de Yeezy presenta un diseño único con gráficos llamativos y un toque urbano. Confeccionada en algodón suave, ofrece comodidad y estilo, ideal para quienes buscan un look moderno y audaz.</p>
+                    <div class="product-rating">★★★★★ <span class="rating-count">(42)</span></div>
+                    <div class="product-price">
+                        <span class="current-price">$24.99</span>
+                        <span class="original-price">$29.99</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="addToCart(2)">Añadir al Carrito</button>
+                        <button class="wishlist-btn">❤</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="product" id="product-3">
+                <div class="product-image-container">
+                    <img src="Img/BlackDogs.jpg" alt="Producto 3" class="product-image">
+                    <button class="quick-view">Vista Rápida</button>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Hoodie Yzy Black Dogs</h3>
+                    <p class="product-description">La Hoodie Yzy Black Dogs de Yeezy destaca por su diseño minimalista con un gráfico exclusivo en tonos oscuros. Hecha de algodón de alta calidad, combina comodidad y estilo urbano, perfecta para un look moderno y casual.</p>
+                    <div class="product-rating">★★★☆☆ <span class="rating-count">(15)</span></div>
+                    <div class="product-price">
+                        <span class="current-price">$79.99</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="addToCart(3)">Añadir al Carrito</button>
+                        <button class="wishlist-btn">❤</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 4 -->
+            <div class="product" id="product-4">
+                <div class="product-badge">Agotándose</div>
+                <div class="product-image-container">
+                    <img src="Img/yzypods.jpg" alt="Producto 4" class="product-image">
+                    <button class="quick-view">Vista Rápida</button>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">YZY Pods</h3>
+                    <p class="product-description">Los Yeezy Pods son un calzado innovador con un diseño futurista y cómodo. Con una estructura única y materiales de alta calidad, ofrecen un ajuste perfecto y un estilo vanguardista, ideal para quienes buscan un toque distintivo en su look.</p>
+                    <div class="product-rating">★★★★☆ <span class="rating-count">(31)</span></div>
+                    <div class="product-price">
+                        <span class="current-price">$39.99</span>
+                        <span class="original-price">$49.99</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart" onclick="addToCart(4)">Añadir al Carrito</button>
+                        <button class="wishlist-btn">❤</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button class="close-cart" id="closeCart">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Los productos del carrito se añadirán aquí dinámicamente -->
+        </div>
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Envío:</span>
+                <span id="shipping">$5.99</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span id="total">$5.99</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Tienda Online</h3>
+                <p>La mejor selección de productos a precios increíbles. Calidad garantizada.</p>
+                <div class="social-icons">
+                    <a href="https://instagram.com/allmylifeshop" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Categorías</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Electrónica</a></li>
+                    <li><a href="#">Hogar</a></li>
+                    <li><a href="#">Moda</a></li>
+                    <li><a href="#">Deportes</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Ayuda</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Envíos y Devoluciones</a></li>
+                    <li><a href="#">Métodos de Pago</a></li>
+                    <li><a href="#">Guía de Tallas</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Suscríbete para recibir ofertas exclusivas y novedades.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu email" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-btn">OK</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 All My Life Shop. | <a href="privacity.html" style="color: var(--secondary);">Política de Privacidad</a> | <a href="help.html" style="color: var(--secondary);">Preguntas Frecuentes</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Datos de productos
+        const products = {
+            1: { id: 1, name: "Yeezy Boost 700 Azael", price: 27.99, image: "Img/YeezyBoost700V3Azael.png" },
+            2: { id: 2, name: "Hoddie Look Me I See Ghost", price: 24.99, image: "Img/LookMeISeeGhost.jpg" },
+            3: { id: 3, name: "Hoddie Black Dogs", price: 79.99, image: "Img/BlackDogs.jpg" },
+            4: { id: 4, name: "YZY Pods", price: 39.99, image: "Img/yzypods.jpg" }
+        };
+
+        // Carrito de compras
+        let cart = [];
+        const cartIcon = document.getElementById('cartIcon');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.getElementById('closeCart');
+        const overlay = document.getElementById('overlay');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const subtotalElement = document.getElementById('subtotal');
+        const shippingElement = document.getElementById('shipping');
+        const totalElement = document.getElementById('total');
+
+        // Mostrar usuario al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = sessionStorage.getItem('currentUser') || 'Invitado';
+            document.getElementById('userWelcome').textContent = `Hola, ${currentUser}`;
+            
+            // Cargar carrito desde localStorage si existe
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
+        });
+
+        // Funciones del carrito
+        function addToCart(productId) {
+            const product = products[productId];
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            updateCartUI();
+            saveCartToLocalStorage();
+            
+            // Animación de añadir al carrito
+            cartIcon.animate([
+                { transform: 'scale(1)' },
+                { transform: 'scale(1.3)' },
+                { transform: 'scale(1)' }
+            ], {
+                duration: 300,
+                iterations: 1
+            });
+        }
+
+        function updateCartUI() {
+            // Actualizar contador del carrito
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = totalItems;
+            
+            // Actualizar lista de productos en el carrito
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Tu carrito está vacío</p>';
+                subtotalElement.textContent = '$0.00';
+                shippingElement.textContent = '$0.00';
+                totalElement.textContent = '$0.00';
+                return;
+            }
+            
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h4 class="cart-item-title">${item.name}</h4>
+                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                        <div class="cart-item-actions">
+                            <div class="quantity-control">
+                                <button class="quantity-btn minus" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                                <button class="quantity-btn plus" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            </div>
+                            <button class="remove-item" onclick="removeItem(${item.id})">Eliminar</button>
+                        </div>
+                    </div>
+                `;
+                
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            const shipping = subtotal > 50 ? 0 : 5.99;
+            const total = subtotal + shipping;
+            
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            shippingElement.textContent = shipping === 0 ? 'Gratis' : `$${shipping.toFixed(2)}`;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity < 1) {
+                    removeItem(productId);
+                } else {
+                    updateCartUI();
+                    saveCartToLocalStorage();
+                }
+            }
+        }
+
+        function removeItem(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+            saveCartToLocalStorage();
+        }
+
+        function saveCartToLocalStorage() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Event listeners para el carrito
+        cartIcon.addEventListener('click', () => {
+            cartSidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartSidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        overlay.addEventListener('click', () => {
+            cartSidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Toggle theme (manteniendo la funcionalidad existente)
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+            
+            updateToggleIcon();
+        }
+
+        function updateToggleIcon() {
+            const toggleBtn = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                toggleBtn.textContent = '☀️';
+            } else {
+                toggleBtn.textContent = '🌙';
+            }
+        }
+
+        function proceedToCheckout() {
+            // Verificar que hay productos en el carrito
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío. Agrega productos antes de proceder al pago.');
+                return;
+            }
+            
+            // Redirigir a la página de checkout
+            window.location.href = 'checkout.html';
+        }
+    </script>
+</body>
+</html>
